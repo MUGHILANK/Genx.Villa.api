@@ -1,0 +1,43 @@
+﻿1. Rooms Table
+Stores basic information about each room.
+
+Column Name	Data Type	Constraint
+RoomId	INT	PRIMARY KEY, IDENTITY
+RoomNumber	VARCHAR(10)	UNIQUE NOT NULL
+Type	VARCHAR(50)	NOT NULL (e.g., 'Deluxe', 'Non-AC', 'Suite')
+Person	INT	NOT NULL
+Price	DECIMAL(10,2)	NOT NULL
+
+
+
+2. RoomDetails Table
+Stores extended details for rooms. One-to-One relationship with Rooms.
+
+Column Name	Data Type	Constraint
+RoomId	INT	PRIMARY KEY, FK → Rooms(RoomId)
+Description	TEXT	NULLABLE
+Amenities	TEXT	NULLABLE
+Reviews	TEXT	NULLABLE
+
+
+
+3. Customers Table
+Stores customer personal and contact information.
+
+Column Name	Data Type	Constraint
+CustomerId	INT	PRIMARY KEY, IDENTITY
+FullName	VARCHAR(100)	NOT NULL
+EmailAddress	VARCHAR(100)	UNIQUE NOT NULL
+MobileNumber	VARCHAR(15)	UNIQUE NOT NULL
+
+
+
+4. Bookings Table
+Stores room bookings and maps customers to rooms.
+
+Column Name	Data Type	Constraint
+BookingId	INT	PRIMARY KEY, IDENTITY
+CustomerId	INT	FK → Customers(CustomerId), NOT NULL
+RoomId	INT	FK → Rooms(RoomId), NOT NULL
+BookingStatus	VARCHAR(50)	NOT NULL (e.g., 'Confirmed', 'Checked-In', 'Cancelled')
+RoomNumber	VARCHAR(10)	NOT NULL (for history/reference only)
